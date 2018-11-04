@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/georgi/Projects/PIK",
+  "command": "gcc -std=c11 -Wall -pedantic   kursova.c -c -o kursova.o",
+  "file": "/home/georgi/Projects/PIK/kursova.c "
+}
+]
