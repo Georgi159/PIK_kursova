@@ -10,12 +10,14 @@ extern int file_magic(FILE *stream,FILE *output);
 extern int menu();
 
 #define NUM_OF_MENU_ENTRYS 5
-
+#define IN_NAME_BUFFER 200
 int file_check_and_operatin(char in_file_name[])
 {
+	clear();
+    endwin();
 
 	FILE *stream;
-	stream = fopen("test.c", "rb");
+	stream = fopen(in_file_name, "rb");
 
 	if (stream == NULL) 
 	{
@@ -35,9 +37,9 @@ int menu()
 
 	
 	char *menu_choice[] = {
-                        "Вход файл Изход терминал",
-                        "Choice 2",
-                        "Choice 3",
+                        "Вход файл Изход file",
+                         "Вход файл Изход терминал",
+                        "Вход терминал Изход терминал",
                         "Choice 4",
                         "Exit",
                   };
@@ -69,8 +71,10 @@ int menu()
 	char selection =0;
 	// wrefresh(stdscr);
     // wrefresh(menu_sel);
+     noecho();
     curs_set(0);
     mvwprintw(menu_sel,2,4,"adsdddddddddddd");
+
 
     while(1)
     {
@@ -96,7 +100,9 @@ int menu()
 	
     	wrefresh(menu_sel);
     	char ch = getch();
-    	mvprintw(30,30,"%d",ch);
+
+
+    //	mvprintw(30,30,"%d",ch);
 
     	
     	
@@ -134,8 +140,6 @@ int menu()
 
     		case 10:
     		{
-
-    			endwin();
     			switch(selection+1)
 				{
 					case 0:
@@ -147,16 +151,98 @@ int menu()
 					case 1:
 					{
 						puts(" 1");
-						file_check_and_operatin(NULL);
+						file_check_and_operatin("test.c");
 
 						break;
 					}
-					case 2:puts(" 2"); break;
-					case 3:puts(" 3"); break;
+					case 2:
+					{
+						puts(" 2");
+						WINDOW *input= newwin(10,50, 10, 4);
+      					mvwprintw(input,2,4,"%s","Въведи името на входния файл");
+      
+      					wborder(input, '|', '|', '-', '-', 0, 0, 0, 0);
+      					wrefresh(input);
+
+      					
+
+      					char name[IN_NAME_BUFFER+1];
+      					 char ch_in;
+      					for (int i = 0; i < IN_NAME_BUFFER; ++i)
+      					{
+
+      						ch_in = getch();
+
+      						if (ch_in==4 || ch_in==10 || ch_in ==0)
+      						{
+      							name[i]='\0';
+      							break;
+
+      						}
+      						name[i]=ch_in;
+      						mvwprintw(input,3,4+i,"%c",ch_in);
+      						wrefresh(input);
+      					}
+    					
+      					mvwprintw(input,4,4,"%s\n",name);
+      					wrefresh(input);
+
+						file_check_and_operatin(name);
+						break;
+					}
+					case 3:
+					{
+						puts(" 3");
+						WINDOW *input= newwin(10,50, 10, 10);
+      					mvwprintw(input,2,4,"%s","Въведи входния код");
+      
+      					wborder(input, '|', '|', '-', '-', 0, 0, 0, 0);
+      					wrefresh(input);
+
+      					char *terminal_code = malloc(sizeof(char)*IN_NAME_BUFFER+2);
+      					unsigned int multiplier = 1 ;
+      				
+      					char ch_in;
+      					for (int i = 0; i < IN_NAME_BUFFER * multiplier; ++i)
+      					{
+
+      						ch_in = getch();
+
+      						if (ch_in==4  || ch_in ==0)
+      						{
+      							terminal_code[i]='\0';
+      							break;
+
+      						}
+
+      						if (IN_NAME_BUFFER * multiplier - 10 < i )
+      						{
+      							multiplier++;
+      							terminal_code= realloc(terminal_code, IN_NAME_BUFFER * multiplier);
+      							if (terminal_code == NULL)
+      							{
+      								exit(2);
+      							}
+      						}
+
+      						terminal_code[i]=ch_in;
+
+      						wprintw(input, "%c", ch_in);
+      						// mvwprintw(input,3,4+i,"%c",ch_in);
+      						wrefresh(input);
+      					}
+    					
+      					mvwprintw(input,4,4,"%s\n",terminal_code);
+      					wrefresh(input);
+      					endwin();
+
+						file_check_and_operatin("test.c");
+						break;
+					}
 					case 4:puts(" 4"); break; 
 				}
     			
-    			
+				endwin();
     			return selection+1;
     			break ;
     		}

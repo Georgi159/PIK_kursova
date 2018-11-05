@@ -1,8 +1,8 @@
 exec.out : kursova.o analysis.o menu.o
-	gcc -std=c11 -Wall -pedantic  -o exec.out kursova.o analysis.o menu.o  -O2 -lcurses -lmenu 
+	gcc -std=c11 -Wall -pedantic  -o exec.out kursova.o analysis.o menu.o  -O2 -lncurses 
 
 kursova.o : kursova.c
-	gcc -std=c11 -Wall -pedantic   kursova.c -c -o kursova.o -O2 -lcurses -lmenu 
+	gcc -std=c11 -Wall -pedantic   kursova.c -c -o kursova.o -O2 -lncurses 
 
 analysis.o : analysis.c
 	gcc -std=c11 -Wall -pedantic   analysis.c -c -o analysis.o  -O2 -lcurses
