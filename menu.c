@@ -29,7 +29,7 @@ int file_check_and_operatin(char in_file_name[])
 
 	file_magic(stream,stdout, 1 , NULL, 0, 0 );
 
-	fclose(stream);
+ 	fclose(stream);
 	return 0;
 }
 
