@@ -6,11 +6,13 @@
 
 
 
-extern int file_magic(FILE *stream,FILE *output);
+extern int file_magic(FILE *stream,FILE *output, unsigned char File_in, char *line, unsigned size_of_line  , unsigned char stream_in);
+
 extern int menu();
 
 #define NUM_OF_MENU_ENTRYS 5
 #define IN_NAME_BUFFER 200
+
 int file_check_and_operatin(char in_file_name[])
 {
 	clear();
@@ -25,7 +27,7 @@ int file_check_and_operatin(char in_file_name[])
 		exit(EXIT_FAILURE);
 	}
 
-	file_magic(stream,stdout);
+	file_magic(stream,stdout, 1 , NULL, 0, 0 );
 
 	fclose(stream);
 	return 0;

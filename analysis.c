@@ -16,22 +16,25 @@
 				( (var) == '_' ) \
 				)?1:0)
 
-int file_magic(FILE *stream,FILE *output)
+int file_magic(FILE *stream,FILE *output, unsigned char File_in, char *line, unsigned size_of_line  , unsigned char stream_in)
 {
 
-	char *line = malloc(sizeof(char)*READ_SIZE+2);
-	fseek(stream, 0L, SEEK_END);
-	int sz = ftell(stream);
-	rewind(stream);
-	fseek(stream, 0L, SEEK_SET);
-
-    fprintf(output,"%d\n",sz );
+	int	sz=0;
+	if (!stream_in)
+	{
+		line = malloc(sizeof(char)*READ_SIZE+2);
+		fseek(stream, 0L, SEEK_END);
+	  	sz = ftell(stream);
+		rewind(stream);
+		fseek(stream, 0L, SEEK_SET);
+	}
+	else
+	{
+		sz=size_of_line;
+	}
 	
-	
-
+   
 	int read_size=READ_SIZE;
-
-	// (sz/READ_SIZE == i +1 && sz%READ_SIZE != 0)
 
 	union 
 	{
@@ -47,8 +50,8 @@ int file_magic(FILE *stream,FILE *output)
 
 	struct
 	{
-		uint8_t start;
-		uint8_t couted;
+		uint8_t  start;
+		uint8_t  couted;
 		uint32_t count;
  	}var = {0,0,0};
 
@@ -72,6 +75,10 @@ int file_magic(FILE *stream,FILE *output)
 		}
 
 
+		// if ()
+		// {
+		// 	 code 
+		// }
 		fread(line+1, sizeof(char), read_size, stream);
 
 		for (int k = 1; k <= read_size; ++k)

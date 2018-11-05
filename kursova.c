@@ -4,7 +4,7 @@
 #include <locale.h>
 
 
-extern int file_magic(FILE *stream,FILE *output);
+extern int file_magic(FILE *stream,FILE *output, unsigned char File_in, char *line, unsigned size_of_line  , unsigned char stream_in);
 extern int menu();
 
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 	menu();
 	
-	
+
 	exit(EXIT_SUCCESS);
 } 
 
