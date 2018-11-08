@@ -87,4 +87,6 @@ sdasfsdfsd
 	free(line);
 	fclose(stream);
 	exit(EXIT_SUCCESS);
-} 
+}
+
+
