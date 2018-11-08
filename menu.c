@@ -10,13 +10,13 @@ extern int file_magic(FILE *stream,FILE *output, unsigned char File_in, char *li
 
 extern int menu();
 
-#define NUM_OF_MENU_ENTRYS 5
+#define NUM_OF_MENU_ENTRYS  5  //(sizeof(menu_choice) / sizeof(char))
 #define IN_NAME_BUFFER 200
 
 int file_check_and_operatin(char in_file_name[])
 {
 	clear();
-    endwin();
+  endwin();
 
 	FILE *stream;
 	stream = fopen(in_file_name, "rb");
@@ -40,10 +40,10 @@ int menu()
 	
 	char *menu_choice[] = {
                         "Вход файл Изход file",
-                         "Вход файл Изход терминал",
+                        "Вход файл Изход терминал",
                         "Вход терминал Изход терминал",
                         "Choice 4",
-                        "Exit",
+                        "Exit"
                   };
 
     initscr();
@@ -75,8 +75,8 @@ int menu()
     // wrefresh(menu_sel);
      noecho();
     curs_set(0);
-    mvwprintw(menu_sel,2,4,"adsdddddddddddd");
-
+   // mvwprintw(menu_sel,2,4,"adsdddddddddddd");
+ wrefresh(menu_sel);
 
     while(1)
     {
