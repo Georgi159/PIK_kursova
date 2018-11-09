@@ -12,46 +12,21 @@
 #endif
 
 
+#ifdef  _WIN32
+#define clear_screen() system("cls")
+#else
+#define clear_screen() system("clear")
+#endif
+
 
 extern int file_magic(FILE *stream, FILE *output);
-
 extern int menu();
+int file_check_and_operatin(char in_file_name[], uint8_t stdin_on,  char out_file_name[], uint8_t stdout_on);
 
 #define NUM_OF_MENU_ENTRYS  5  //(sizeof(menu_choice) / sizeof(char))
 #define IN_NAME_BUFFER 200
 
-int file_check_and_operatin(char in_file_name[], uint8_t stdin_on,  char out_file_name[], uint8_t stdout_on)
-{
 
-  FILE *stream = (stdin_on) ? stdin :  fopen(in_file_name, "rb");
-
-
-  FILE *output = (stdout_on) ? stdout :  fopen(out_file_name, "w");
-
-
-  if (stream == NULL || output == NULL)
-  {
-    perror("fopen");
-    exit(EXIT_FAILURE);
-  }
-
-
-  file_magic(stream, output);
-
-
-  fclose(stream);
-  fclose(output);
-  return 0;
-}
-void clear_screen()
-{
-
-#ifdef  _WIN32
-  system("cls");
-#else
-  system("clear");
-#endif
-}
 
 
 int menu()
@@ -120,11 +95,6 @@ int menu()
     {
       switch (selection + 1)
       {
-      case 0:
-      {
-        puts(" 0");
-        break ;
-      }
       case 1:
       {
         puts(" 1");
@@ -153,7 +123,7 @@ int menu()
 
 
 
-        file_check_and_operatin(namein, 0, nameout, 0);
+        return file_check_and_operatin(namein, 0, nameout, 0);
 
         break;
       }
@@ -177,14 +147,14 @@ int menu()
           exit(1);
         }
 
-        file_check_and_operatin(namein, 0, "", 1);
+        return file_check_and_operatin(namein, 0, "", 1);
       }
       case 3:
       {
         puts(" 3");
 
-
-        file_check_and_operatin("", 1, "", 1);
+        printf("Въведи C код\n");
+        return file_check_and_operatin("", 1, "", 1);
         break;
       }
       case 4:
@@ -194,7 +164,9 @@ int menu()
         fgets(nameout, IN_NAME_BUFFER, stdin);
         nameout[strlen(nameout) - 1] = '\0';
 
-        file_check_and_operatin("", 1, nameout, 0);
+
+        printf("Въведи C код\n");
+        return file_check_and_operatin("", 1, nameout, 0);
         break;
       }
 
@@ -209,4 +181,26 @@ int menu()
   }
 
 
+}
+
+
+
+
+
+int file_check_and_operatin(char in_file_name[], uint8_t stdin_on,  char out_file_name[], uint8_t stdout_on)
+{
+  FILE *stream = (stdin_on ) ? stdin  :  fopen(in_file_name, "rb");
+  FILE *output = (stdout_on) ? stdout :  fopen(out_file_name, "w");
+
+  if (stream == NULL || output == NULL)
+  {
+    perror("fopen");
+    exit(EXIT_FAILURE);
+  }
+
+  file_magic(stream, output);
+
+  fclose(stream);
+  fclose(output);
+  return 0;
 }

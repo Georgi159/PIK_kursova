@@ -10,7 +10,7 @@
 
 
 
-extern int file_magic(FILE *stream,FILE *output);
+// extern int file_magic(FILE *stream,FILE *output);
 extern int menu();
 
 
@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
 		setlocale(LC_ALL, "");
 	#endif
 	menu();
-	
+		
+		
 
 	exit(EXIT_SUCCESS);
 } 

@@ -1,13 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
-// #include <wchar.h>
-// #include <stdlib.h>
-// #include <stdio.h>
-// #include <errno.h>
 #include <locale.h>
 
-#define READ_SIZE 100
+#define READ_SIZE 500
 
 #define IS_VAR(var,not_beginig_detection) (( \
 				( (var)>='A' && (var)<='Z') || \
@@ -22,9 +18,7 @@
 int file_magic(FILE *stream, FILE *output)
 {
 
-	char line[READ_SIZE + 2] = {0};
-
-
+	char line[READ_SIZE + 3] = {0};
 
 	union
 	{
@@ -50,10 +44,10 @@ int file_magic(FILE *stream, FILE *output)
 	uint8_t error = 0;
 
 
-	for (int i = 0; fgets(&line[1], READ_SIZE, stream ) ; ++i)
+	for (int i = 0; fgets(&line[2], READ_SIZE, stream ) ; ++i)
 	{
 
-		for (int k = 1; line[k] != '\0' ; ++k)
+		for (int k = 2; line[k] != '\0' ; ++k)
 		{
 
 			switch (line[k])
@@ -80,8 +74,8 @@ int file_magic(FILE *stream, FILE *output)
 
 			case '\'':
 			{
-				if (line[k - 1] == '\\') break;
-				if (line[k - 1] == '\'') break;
+				if (line[k - 1] == '\\'  && line[k - 2] != '\\'  ) break;
+				// if (line[k - 1] == '\'') break;
 				if (flags.multiline_coment || flags.sigleline_coment || flags.string) break;
 
 				flags.ch = !flags.ch;
@@ -178,10 +172,8 @@ int file_magic(FILE *stream, FILE *output)
 		error = 1;
 	}
 
-
-	fprintf(output, "%d %d\n", right , left );
-	fprintf(output, "pairs =%d error=%d var.count=%d\n", pairs , error, var.count);
-
+	printf("%d %d %d\n", right , left , flags.all_flags );
+	fprintf(output, "Блокове код = %d \nгрешки = %s \nброй \"променливи\" = %d\n", pairs , (error)? "има" : "няма", var.count);
 
 	return 0;
 }
