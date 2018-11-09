@@ -128,18 +128,18 @@ int menu()
       case 1:
       {
         puts(" 1");
-        
+
         char namein[IN_NAME_BUFFER ];
         char nameout[IN_NAME_BUFFER];
 
         printf("Въведи име на входния файл\n");
         fgets(namein, IN_NAME_BUFFER, stdin);
 
-        uint16_t legth=strlen(namein);
+        uint16_t legth = strlen(namein);
 
-        namein[legth-1]= '\0';
+        namein[legth - 1] = '\0';
 
-        if (namein[legth-3] != '.' || namein[legth-2] != 'c' )
+        if (namein[legth - 3] != '.' || namein[legth - 2] != 'c' )
         {
           puts("въведи с фаил");
           exit(1);
@@ -149,9 +149,9 @@ int menu()
 
         printf("Въведи име на Изход файл\n");
         fgets(nameout, IN_NAME_BUFFER, stdin);
-        nameout[strlen(nameout)-1]= '\0';
+        nameout[strlen(nameout) - 1] = '\0';
 
-        
+
 
         file_check_and_operatin(namein, 0, nameout, 0);
 
@@ -161,21 +161,44 @@ int menu()
       {
         puts(" 2");
 
+        char namein[IN_NAME_BUFFER ];
 
-        file_check_and_operatin("test.c", 0, "", 1);
-        break;
+
+        printf("Въведи име на входния файл\n");
+        fgets(namein, IN_NAME_BUFFER, stdin);
+
+        uint16_t legth = strlen(namein);
+
+        namein[legth - 1] = '\0';
+
+        if (namein[legth - 3] != '.' || namein[legth - 2] != 'c' )
+        {
+          puts("въведи с фаил");
+          exit(1);
+        }
+
+        file_check_and_operatin(namein, 0, "", 1);
       }
       case 3:
       {
         puts(" 3");
 
 
-        file_check_and_operatin("test.c", 0, "", 1);
+        file_check_and_operatin("", 1, "", 1);
         break;
       }
       case 4:
-        puts(" 4");
+      {
+        char nameout[IN_NAME_BUFFER];
+        printf("Въведи име на Изход файл\n");
+        fgets(nameout, IN_NAME_BUFFER, stdin);
+        nameout[strlen(nameout) - 1] = '\0';
+
+        file_check_and_operatin("", 1, nameout, 0);
         break;
+      }
+
+       
       }
 
       return selection + 1;
