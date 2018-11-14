@@ -1,17 +1,36 @@
-exec.out : kursova.o analysis.o menu.o getch.o
-	gcc -std=c11 -Wall -pedantic  -o exec.out kursova.o analysis.o menu.o getch.o  -O2 
+CC=gcc 
+CPPFLAGS=-Wall -pedantic -Wextra  -O2
+LDLIBS=-lhpdf
+OBJDIR=obj
+SRC=src
 
-kursova.o : kursova.c
-	gcc -std=c11 -Wall -pedantic   kursova.c -c -o kursova.o -O2 
+all : exec.out
 
-analysis.o : analysis.c
-	gcc -std=c11 -Wall -pedantic   analysis.c -c -o analysis.o  -O2 
+exec.out : $(OBJDIR)/kursova.o $(OBJDIR)/analysis.o $(OBJDIR)/menu.o $(OBJDIR)/getch.o $(OBJDIR)
+	$(CC) $(CFLAGS)   $(CPPFLAGS)  $(OBJDIR)/kursova.o $(OBJDIR)/analysis.o $(OBJDIR)/menu.o $(OBJDIR)/getch.o   -o exec.out
 
-menu.o : menu.c
-	gcc -std=c11 -Wall -pedantic   menu.c -c -o menu.o  -O2 
+$(OBJDIR)/%.o:  $(SRC)/%.c $(OBJDIR)
+	$(CC) $(CFLAGS)  $(CPPFLAGS) -c $< -o $@ 
 
-getch.o : getch.c
-	gcc -std=c11 -Wall -pedantic   getch.c -c -o getch.o  -O2 
+# $(OBJDIR)/kursova.o : $(SRC)/kursova.c $(OBJDIR)
+# 	$(CC) $(CFLAGS) $(CPPFLAGS)   $(SRC)/kursova.c -c -o $(OBJDIR)/$@
+
+# $(OBJDIR)/analysis.o : $(SRC)/analysis.c $(OBJDIR)
+# 	$(CC) $(CFLAGS) $(CPPFLAGS)   $(SRC)/analysis.c -c -o $(OBJDIR)/$@
+
+# $(OBJDIR)/menu.o : $(SRC)/menu.c $(OBJDIR)
+# 	$(CC) $(CFLAGS) $(CPPFLAGS)   $(SRC)/menu.c -c -o $(OBJDIR)/$@
+
+# $(OBJDIR)/getch.o : $(SRC)/getch.c $(OBJDIR)
+# 	$(CC) $(CFLAGS) $(CPPFLAGS)   $(SRC)/getch.c -c -o $(OBJDIR)/$@
+
+$(OBJDIR) : 
+	mkdir -p $(OBJDIR)
 
 clean: 
 	rm -f *.o exec.out
+	rm -rf $(OBJDIR)
+
+
+
+.PHONY: all exec.out clean

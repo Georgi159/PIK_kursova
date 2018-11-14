@@ -267,7 +267,7 @@ int file_magic(FILE *stream, FILE *output)
 	}
 
 	printf("%d %d %d\n", right , left , flags.all_flags );
-	fprintf(output, "Блокове код = %d \nгрешки = %s \nброй \"променливи\" = %d\n", pairs , (error)? "има" : "няма", var.count);
+	fprintf(output, "Блокове код = %d \nгрешки %s \nброй \"променливи\" = %d\n", pairs , (error)? "има" : "няма", var.count);
 
 	return 0;
 }

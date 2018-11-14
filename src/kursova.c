@@ -15,7 +15,7 @@ extern int menu();
 
 
 
-int main(int argc, char *argv[])
+int main(void)
 {
 	#ifdef  _WIN32
 		system("chcp 1251 >nul 2>&1");
