@@ -17,7 +17,7 @@ int file_magic(FILE *stream, FILE *output);
 
 // extern int file_magic(FILE *stream,FILE *output);
  int menu();
-
+ int file_check_and_operatin(char in_file_name[], uint8_t stdin_on, char out_file_name[], uint8_t stdout_on);
 
 
 int main(void)
@@ -26,8 +26,7 @@ int main(void)
 	
 	menu();
 		
-		
-
+	
 	PAUSE_EXIT(EXIT_SUCCESS);
 } 
 
@@ -113,7 +112,7 @@ int menu()
 				printf("Въведи име на входния файл\n");
 				fgets(namein, IN_NAME_BUFFER, stdin);
 
-				uint16_t legth = strlen(namein);
+				size_t legth = strlen(namein);
 
 				namein[legth - 1] = '\0';
 
@@ -145,7 +144,7 @@ int menu()
 				printf("Въведи име на входния файл\n");
 				fgets(namein, IN_NAME_BUFFER, stdin);
 
-				uint16_t legth = strlen(namein);
+				size_t legth = strlen(namein);
 
 				namein[legth - 1] = '\0';
 
@@ -208,9 +207,17 @@ int file_check_and_operatin(char in_file_name[], uint8_t stdin_on, char out_file
 
 	file_magic(stream, output);
 
-	fclose(stream);
-	fclose(output);
-	return 0;
+	if (stream != stdin)
+	{
+		fclose(stream);
+	}
+
+	if (output != stdout)
+	{
+		fclose(output);
+	}
+	
+	return (int)0;
 }
 
 
@@ -248,8 +255,7 @@ int file_magic(FILE *stream, FILE *output)
 		uint8_t  start;
 		uint8_t  couted;
 		uint32_t count;
-		uint8_t first_counted;
-	} var = { 0, 0, 0, 0 };
+	} var = { 0, 0, 0};
 
 
 	int left = 0, right = 0, pairs = 0;
@@ -384,7 +390,6 @@ int file_magic(FILE *stream, FILE *output)
 		error = 1;
 	}
 
-	//printf("%d %d %d\n", right, left, flags.all_flags);
 	fprintf(output, "Блокове код = %d \nгрешки = %s \nброй \"променливи\" = %d\n", pairs, (error) ? "има" : "няма", var.count);
 
 	return 0;
