@@ -154,7 +154,7 @@ int file_magic(FILE *stream, FILE *output)
 			}
 			else
 			{
-				if (var.couted == 0)
+				if (var.couted == 0 && var.start == 1)
 				{
 					var.count++;
 					var.couted = 1;

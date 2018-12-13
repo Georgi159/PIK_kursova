@@ -8,7 +8,7 @@
 #include <conio.h>
 
 #define clear_screen() system("cls")
-int file_magic(FILE *stream, FILE *output);
+int count_blocks_and_vars(FILE *stream, FILE *output);
 
 #define NUM_OF_MENU_ENTRYS  5  //(sizeof(menu_choice) / sizeof(char))
 #define IN_NAME_BUFFER 200
@@ -205,7 +205,7 @@ int file_check_and_operatin(char in_file_name[], uint8_t stdin_on, char out_file
 		PAUSE_EXIT(EXIT_FAILURE);
 	}
 
-	file_magic(stream, output);
+	count_blocks_and_vars(stream, output);
 
 	if (stream != stdin)
 	{
@@ -233,7 +233,7 @@ int file_check_and_operatin(char in_file_name[], uint8_t stdin_on, char out_file
 
 
 
-int file_magic(FILE *stream, FILE *output)
+int count_blocks_and_vars(FILE *stream, FILE *output)
 {
 
 	char line[READ_SIZE + 3] = { 0 };

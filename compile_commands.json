@@ -1,0 +1,47 @@
+[
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-O2",
+            "-o",
+            "obj/analysis.o",
+            "src/analysis.c"
+        ],
+        "directory": "/home/georgi/Projects/PIK",
+        "file": "src/analysis.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-O2",
+            "-o",
+            "obj/getch.o",
+            "src/getch.c"
+        ],
+        "directory": "/home/georgi/Projects/PIK",
+        "file": "src/getch.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-O2",
+            "-o",
+            "obj/kursova.o",
+            "src/kursova.c"
+        ],
+        "directory": "/home/georgi/Projects/PIK",
+        "file": "src/kursova.c"
+    }
+]

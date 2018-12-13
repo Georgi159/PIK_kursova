@@ -13,8 +13,6 @@
 // extern int file_magic(FILE *stream,FILE *output);
 extern int menu();
 
-
-
 int main(void)
 {
 	#ifdef  _WIN32
@@ -23,8 +21,7 @@ int main(void)
 		setlocale(LC_ALL, "");
 	#endif
 	menu();
-		
-		
+			
 
 	exit(EXIT_SUCCESS);
 } 
